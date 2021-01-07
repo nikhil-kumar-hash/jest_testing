@@ -93,18 +93,18 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const { generateText, createElement, validateInput } = __webpack_require__(/*! ../util */ \"./util.js\");\n\nconst initApp = () => {\n  // Initializes the app, registers the button click listener\n  const newUserButton = document.querySelector('#btnAddUser');\n  newUserButton.addEventListener('click', addUser);\n};\n\nconst addUser = () => {\n  // Fetches the user input, creates a new HTML element based on it\n  // and appends the element to the DOM\n  const newUserNameInput = document.querySelector('input#name');\n  const newUserAgeInput = document.querySelector('input#age');\n\n  if (\n    !validateInput(newUserNameInput.value, true, false) ||\n    !validateInput(newUserAgeInput.value, false, true)\n  ) {\n    return;\n  }\n\n  const userList = document.querySelector('.user-list');\n  const outputText = generateText(\n    newUserNameInput.value,\n    newUserAgeInput.value\n  );\n  const element = createElement('li', outputText, 'user-item');\n  userList.appendChild(element);\n};\n\ninitApp();\n\n//# sourceURL=webpack:///./Integration_Testing/app.js?");
+eval("const { CheckAndGenerate, createElement} = __webpack_require__(/*! ./util */ \"./Integration_Testing/util.js\");\n\nconst initApp = () => {\n  // Initializes the app, registers the button click listener\n  const newUserButton = document.querySelector('#btnAddUser');\n  newUserButton.addEventListener('click', addUser);\n};\n\n\nconst outputText = CheckAndGenerate(\n    newUserNameInput.value,\n    newUserAgeInput.value\n  );\n\n  if(!outputText){\n      return;\n  }\n\nconst addUser = () => {\n  // Fetches the user input, creates a new HTML element based on it\n  // and appends the element to the DOM\n\n  const userList = document.querySelector('.user-list');\n  \n  const element = createElement('li', outputText, 'user-item');\n  userList.appendChild(element);\n};\n\ninitApp();\n\n//# sourceURL=webpack:///./Integration_Testing/app.js?");
 
 /***/ }),
 
-/***/ "./util.js":
-/*!*****************!*\
-  !*** ./util.js ***!
-  \*****************/
+/***/ "./Integration_Testing/util.js":
+/*!*************************************!*\
+  !*** ./Integration_Testing/util.js ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("exports.generateText = (name, age) => {\n    // Returns output text\n    return `${name} (${age} years old)`;\n  };\n  \n  exports.createElement = (type, text, className) => {\n    // Creates a new HTML element and returns it\n    const newElement = document.createElement(type);\n    newElement.classList.add(className);\n    newElement.textContent = text;\n    return newElement;\n  };\n  \n  exports.validateInput = (text, notEmpty, isNumber) => {\n    // Validate user input with two pre-defined rules\n    if (!text) {\n      return false;\n    }\n    if (notEmpty && text.trim().length === 0) {\n      return false;\n    }\n    if (isNumber && +text === NaN) {\n      return false;\n    }\n    return true;\n  };\n\n//# sourceURL=webpack:///./util.js?");
+eval("const generateText = (name, age) => {\n    // Returns output text\n    return `${name} (${age} years old)`;\n  };\n  \n  exports.createElement = (type, text, className) => {\n    // Creates a new HTML element and returns it\n    const newElement = document.createElement(type);\n    newElement.classList.add(className);\n    newElement.textContent = text;\n    return newElement;\n  };\n  \n  const validateInput = (text, notEmpty, isNumber) => {\n    // Validate user input with two pre-defined rules\n    if (!text) {\n      return false;\n    }\n    if (notEmpty && text.trim().length === 0) {\n      return false;\n    }\n    if (isNumber && +text === NaN) {\n      return false;\n    }\n    return true;\n  };\n\n  exports.CheckAndGenerate = (name,age) => {\n    \n    if (\n        !validateInput(name, true, false) ||\n        !validateInput(age, false, true)\n      ) {\n        return false;\n      }\n      return generateText(name, age);\n  }\n\n  exports.generateText = generateText;\n  exports.validateInput = validateInput;\n\n//# sourceURL=webpack:///./Integration_Testing/util.js?");
 
 /***/ })
 

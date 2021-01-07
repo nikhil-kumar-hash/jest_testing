@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage --watchAll",
+    "test": "jest --coverage",
     "start": "webpack Integration_Testing/app.js --mode development --watch"
   },
   "keywords": [
